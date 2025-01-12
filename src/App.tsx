@@ -11,19 +11,23 @@ function App() {
         <div className="h-1/6 w-full flex justify-center items-center bg-orange-900">
           <h3 className="font-bold text-3xl">ForecastLy</h3>
         </div>
-        <div className="bg-purple-400 flex  justify-between w-full p-2 mt-2">
-          <input type="text" />
+        <div className="bg-purple-400 flex  justify-between w-full p-2 m-3">
+          <input
+            type="text"
+            placeholder="Search for place"
+            className="bg-opacity-50 p-2 border-none outline-none rounded-lg w-full mr-2 placeholder:"
+          />
           <button className="flex items-center gap-2 px-4 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
             <FaSearch />
             Search
           </button>
         </div>
-        <div className="flex flex-col justify-center items-center mt-4 w-full bg-red-500">
+        <div className="flex flex-col justify-center items-center w-full bg-red-500">
           <h2 className="text-2xl font-bold">today's weather</h2>
           <WiDaySunny size={200} className="text-yellow-500" />
         </div>
-        <div className="bg-sky-300 w-full">
-          <p className="text-6xl font-bold">22°C</p>
+        <div className="bg-sky-300 w-full px-2 flex flex-col">
+          <p className="text-6xl font-bold ">22°C</p>
           <p className="text-2xl font-bold">Sunny</p>
         </div>
         <div className="w-full bg-orange-700 p-2 flex flex-col justify-between">
