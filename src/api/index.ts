@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -14,8 +14,12 @@ export const getWeather = async (cityName: string) => {
     );
     const data = (await response).data;
     return data;
-  } catch (error) {
-    console.error("Error fetching weather data:", error);
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      throw new Error("City not found");
+    } else {
+      console.error("Error fetching weather data:", error);
+    }
   }
 };
 

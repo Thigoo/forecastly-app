@@ -25,12 +25,17 @@ export const TodaysWeather = () => {
   const handleSearch = async (input: string) => {
     try {
       setLoading(true);
+      setError(null);
       const data = await getWeather(input);
       console.log("data ->", data);
       setWeatherData(data);
     } catch (error) {
-      console.error("Error fetching weather data:", error);
-      setError("Could not fetch weather data. Please try again");
+      if (error instanceof Error) {
+        console.log("ERROR", error.message);
+        setError(error.message); // Set the error message from the API
+      } else {
+        setError("Could not fetch weather data. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
@@ -69,21 +74,17 @@ export const TodaysWeather = () => {
   const formattedTemp = weatherData
     ? formatTemp(weatherData?.main.temp as number)
     : 0;
+
   return (
     <>
       {/* left */}
       <div className="w-1/3 bg-blue-100 p-4 flex flex-col text-center items-center">
         <Header />
-        <Search onSearch={handleSearch} />
+        <Search onSearch={handleSearch} apiError={error} />
         {loading && (
           <div className="flex flex-col items-center justify-center h-64">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
             <p className="text-blue-500">Loading weather data...</p>
-          </div>
-        )}
-        {error && (
-          <div className="bg-red-500 text-white p-4 rounded-md mt-4">
-            <p>{error}</p>
           </div>
         )}
         <TodaysWeatherInfo
